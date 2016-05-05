@@ -15,7 +15,7 @@
 (function (app) {
     'use strict';
 
-    app.factory('uiTourBackdrop', ['TourConfig', '$document', '$uibPosition', function (TourConfig, $document, $uibPosition) {
+    app.factory('uiTourBackdrop', ['TourConfig', '$window', '$document', '$uibPosition', function (TourConfig, $window, $document, $uibPosition) {
 
         var service = {},
             $body = angular.element($document[0].body),
@@ -107,7 +107,7 @@
                 position: isFixedElement ? 'fixed' : 'absolute',
                 left: 0,
                 width: '100%',
-                height: (bodyPosition.top + bodyPosition.height - position.top - position.height) + 'px',
+                height: ($window.innerHeight - position.top - position.height) + 'px',
                 top: (position.top + position.height) + 'px'
             });
             viewWindow.left.css({
