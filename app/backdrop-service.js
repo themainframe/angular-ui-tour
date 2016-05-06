@@ -2,7 +2,7 @@
 (function (app) {
     'use strict';
 
-    app.factory('uiTourBackdrop', ['TourConfig', '$window', '$document', '$uibPosition', function (TourConfig, $window, $document, $uibPosition) {
+    app.factory('uiTourBackdrop', ['TourConfig', '$document', '$uibPosition', function (TourConfig, $document, $uibPosition) {
 
         var service = {},
             $body = angular.element($document[0].body),
@@ -82,6 +82,14 @@
             if (isFixedElement) {
                 angular.extend(position, viewportPosition);
             }
+            
+            function getDocHeight() {
+                return Math.max(
+                    document.body.scrollHeight, document.documentElement.scrollHeight,
+                    document.body.offsetHeight, document.documentElement.offsetHeight,
+                    document.body.clientHeight, document.documentElement.clientHeight
+                );
+            }
 
             viewWindow.top.css({
                 position: isFixedElement ? 'fixed' : 'absolute',
@@ -94,7 +102,7 @@
                 position: isFixedElement ? 'fixed' : 'absolute',
                 left: 0,
                 width: '100%',
-                height: ($window.innerHeight - position.top - position.height) + 'px',
+                height: (getDocHeight() - position.top - position.height) + 'px',
                 top: (position.top + position.height) + 'px'
             });
             viewWindow.left.css({
